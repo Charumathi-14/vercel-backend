@@ -19,26 +19,19 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+// ✅ TEMP FIX (very important)
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://vercel-frontend-gamma-eight.vercel.app",
-      "https://vercel-frontend-1b6rsmr1e-charumathi-14s-projects.vercel.app",
-    ],
+    origin: true,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-app.options("*", cors());
-
-app.use("/books", express.static("public/books"));
 
 app.get("/", (req, res) => {
   res.send("server is running");
 });
+
+app.use("/books", express.static("public/books"));
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
