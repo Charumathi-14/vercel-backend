@@ -1,11 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
-import { connectDb } from "./config/conectDB.js";
-import userRouter from "./routes/UserRouter.js";
-import authRouter from "./routes/authRoute.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
+import { connectDb } from "./config/conectDB.js";
+import userRouter from "./routes/UserRouter.js";
+import authRouter from "./routes/authRoute.js";
 import AuthorRouter from "./routes/AuthorRouter.js";
 import BookAPIRouter from "./routes/BookAPIRouter.js";
 import categoryRoutes from "./routes/categoryRouter.js";
@@ -24,11 +24,15 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://vercel-frontend-gamma-eight.vercel.app",
-      "https://vercel-frontend-1b6rsmr1e-charumathi-14s-projects.vercel.app"
+      "https://vercel-frontend-1b6rsmr1e-charumathi-14s-projects.vercel.app",
     ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.options("*", cors());
 
 app.use("/books", express.static("public/books"));
 
